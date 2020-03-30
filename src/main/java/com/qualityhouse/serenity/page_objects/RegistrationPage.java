@@ -43,4 +43,10 @@ public class RegistrationPage
 
     @FindBy( name = "alias" )
     public WebElementFacade addressAliasField;
+
+    @FindBy( id = "submitAccount")
+    public WebElementFacade submitBtn;
+
+    @FindBy( className = "alert-danger")
+    public WebElementFacade errorMessage;
 }
