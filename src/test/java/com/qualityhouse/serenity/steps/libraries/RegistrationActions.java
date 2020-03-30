@@ -4,6 +4,7 @@ import com.qualityhouse.serenity.entities.AddressDetails;
 import com.qualityhouse.serenity.entities.User;
 import com.qualityhouse.serenity.page_objects.LoginPage;
 import com.qualityhouse.serenity.page_objects.RegistrationPage;
+import com.qualityhouse.serenity.page_objects.components.RegistrationFormComponent;
 import com.qualityhouse.serenity.utils.MonthsEnum;
 import net.thucydides.core.annotations.Step;
 
@@ -25,13 +26,13 @@ public class RegistrationActions
         selectGender( user.getTitle() );
 
         fillsFieldWithData( FIRST_NAME_FIELD,
-                            user.getFirstName() );
+                user.getFirstName() );
         fillsFieldWithData( LAST_NAME_FIELD,
-                            user.getLastName() );
+                user.getLastName() );
         fillsFieldWithData( EMAIL_FIELD,
-                            user.getEmail() );
+                user.getEmail() );
         fillsFieldWithData( PASSWORD_FIELD,
-                            user.getPassword() );
+                user.getPassword() );
 
         enterBirthDate( user.getDataOfBirth() );
     }
@@ -40,32 +41,32 @@ public class RegistrationActions
     public void entersHisAddressDetails( AddressDetails addressDetails )
     {
         fillsFieldWithData( registrationPage.address1Field,
-                            addressDetails.getAddress() );
+                addressDetails.getAddress() );
 
         fillsFieldWithData( registrationPage.addressCityField,
-                            addressDetails.getCity() );
+                addressDetails.getCity() );
 
         selectsFromDropDownAnItemByVisibleText( ADDRESS_STATE_DROP_DOWN_LOCATOR,
-                                                addressDetails.getState() );
+                addressDetails.getState() );
 
         fillsFieldWithData( registrationPage.addressZipCodeField,
-                            addressDetails.getZip() );
+                addressDetails.getZip() );
 
         selectsFromDropDownAnItemByVisibleText( ADDRESS_COUNTRY_DROP_DOWN_LOCATOR,
-                                                addressDetails.getCountry() );
+                addressDetails.getCountry() );
 
         fillsFieldWithData( registrationPage.addressMobilePhoneField,
-                            addressDetails.getMobilePhone() );
+                addressDetails.getMobilePhone() );
 
         fillsFieldWithData( registrationPage.addressAliasField,
-                            addressDetails.getAddressAlias() );
+                addressDetails.getAddressAlias() );
     }
 
     @Step
     public void startsRegistrationWithEmail( String email )
     {
         fillsFieldWithData( loginPage.registrationMailField,
-                            email );
+                email );
         clicksOn( loginPage.createAnAccountButton );
     }
 
@@ -74,7 +75,7 @@ public class RegistrationActions
         if ( gender != null )
         {
             if ( gender.toLowerCase()
-                       .contains( "mrs" ) )
+                    .contains( "mrs" ) )
             {
                 registrationPage.mrsRadioButton.click();
             } else
@@ -92,15 +93,20 @@ public class RegistrationActions
                     .split( "-" );
             String day = tokenizedDateOfBirth[0];
             String monthValue = MonthsEnum.valueOf( tokenizedDateOfBirth[1].toUpperCase() )
-                                          .getValue();
+                    .getValue();
             String year = tokenizedDateOfBirth[2];
 
             selectsFromDropDownAnItemByValue( DAY_OF_BIRTH_DROP_DOWN_LOCATOR,
-                                              day );
+                    day );
             selectsFromDropDownAnItemByValue( MONTH_OF_BIRTH_DROP_DOWN_LOCATOR,
-                                              monthValue );
+                    monthValue );
             selectsFromDropDownAnItemByValue( YEAR_OF_BIRTH_DROP_DOWN_LOCATOR,
-                                              year );
+                    year );
         }
     }
+
+    public void submitRegistrationForm() {
+        clicksOn(REGISTER_BUTTON);
+    }
+
 }
